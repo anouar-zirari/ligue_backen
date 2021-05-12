@@ -10,6 +10,8 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode
 @Entity
+@Table(schema = "league", name = "game")
+
 public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
