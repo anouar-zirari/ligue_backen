@@ -20,11 +20,11 @@ public class Game {
     @Column(name = "game_date")
     private Date gameDate;
     @Column(name = "round_id")
-    private int roundId;
+    private Long roundId;
     @Column(name = "host_team_id")
-    private int hostTeamId;
+    private Long hostTeamId;
     @Column(name = "visitor_team_id")
-    private int visitorTeamId;
+    private Long visitorTeamId;
 
 
 
