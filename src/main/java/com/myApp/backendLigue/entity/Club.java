@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode
 @Entity
+@Table(schema = "league", name = "club")
 public class Club {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

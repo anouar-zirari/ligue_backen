@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode
-@Entity
+//@Entity
 public class Play {
     @Column(name = "number_red_card")
     private int numberRedCard;
