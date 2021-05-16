@@ -15,7 +15,7 @@ public class ClubController {
     @Autowired
     ClubService clubService;
 
-    @RequestMapping("/findAll")
+    @RequestMapping("/findAllClub")
     public List<Club> findAll(){
         return this.clubService.findAll();
     }

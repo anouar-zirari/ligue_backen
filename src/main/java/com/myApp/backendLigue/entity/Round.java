@@ -9,8 +9,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(schema = "league", name = "round")
+@Table(schema = "league", name = "rounds")
 public class Round {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "round_id")

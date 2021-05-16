@@ -1,7 +1,10 @@
 package com.myApp.backendLigue.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(schema = "league", name = "player")
 public class Player {
