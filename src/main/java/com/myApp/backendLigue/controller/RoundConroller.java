@@ -15,7 +15,7 @@ import java.util.List;
 public class RoundConroller {
 
     @Autowired
-    RoundService roundService;
+    private RoundService roundService;
 
     @GetMapping("/findAllRounds")
     public List<Round> findAllRounds(){

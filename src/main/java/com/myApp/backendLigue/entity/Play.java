@@ -13,8 +13,8 @@ public class Play {
     // add id to play class
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "play_id")
     private Long playId;
-
 
     @Column(name = "number_red_card")
     private int numberRedCard;

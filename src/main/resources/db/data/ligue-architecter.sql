@@ -1,4 +1,4 @@
-
+drop database ligue;
 create database ligue;
 use ligue;
 
@@ -6,6 +6,7 @@ use ligue;
 CREATE TABLE club(
     club_id INT NOT NULL AUTO_INCREMENT,
     club_name VARCHAR(250) NOT NULL,
+    club_logo VARCHAR(250) NOT NULL,
     PRIMARY KEY (club_id)
 );
 
@@ -42,10 +43,15 @@ CREATE TABLE play(
     play_id INT AUTO_INCREMENT,
     number_red_card INT,
     number_yalow_card INT,
+<<<<<<< HEAD
     number_game_susponded INT,
     game_id INT NOT NULL,
     player_id INT NOT NULL,
     PRIMARY KEY (game_id, player_id),
+=======
+    elimination_period INT,
+    PRIMARY KEY (play_id),
+>>>>>>> d88a961cf09efd63071d2e85371e3e91404871ea
     FOREIGN KEY (game_id) REFERENCES game(game_id),
     FOREIGN key (player_id) REFERENCES player(player_id)
 );

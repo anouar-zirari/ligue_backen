@@ -11,7 +11,7 @@ import java.util.List;
 public class RoundService {
 
     @Autowired
-    RoundRepository roundRepository;
+    private RoundRepository roundRepository;
 
     public List<Round> findAllRounds(){
         return this.roundRepository.findAll();
