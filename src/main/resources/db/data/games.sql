@@ -1,5 +1,4 @@
 
-/* round 1 games */
 
 INSERT INTO `game` (`game_date`, `round_id`, `host_team_id`, `visitor_team_id`)
 VALUES ( '2021-01-04', 1, 1, 2);
@@ -24,7 +23,6 @@ VALUES ( '2021-01-07', 1, 9, 10);
 INSERT INTO `game` (`game_date`, `round_id`, `host_team_id`, `visitor_team_id`)
 VALUES ( '2021-01-07', 1, 11, 12);
 
-/* round 2 games */
 
 
 INSERT INTO `game` (`game_date`, `round_id`, `host_team_id`, `visitor_team_id`)
@@ -45,8 +43,6 @@ VALUES ( '2021-01-15', 2, 9, 11);
 INSERT INTO `game` (`game_date`, `round_id`, `host_team_id`, `visitor_team_id`)
 VALUES ( '2021-01-15', 2, 10, 12);
 
-
-/* round 3 games */
 
 
 INSERT INTO `game` (`game_date`, `round_id`, `host_team_id`, `visitor_team_id`)

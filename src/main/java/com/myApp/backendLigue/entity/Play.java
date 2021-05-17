@@ -7,22 +7,24 @@ import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode
-//@Entity
+@Entity
 public class Play {
 
     // add id to play class
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "play_id")
     private Long playId;
 
-
-    @Column(name = "number_red_card")
-    private int numberRedCard;
-    @Column(name = "number_yalow_card")
-    private int number_yalow_card;
     @Column(name = "game_id")
     private int gameId;
     @Column(name = "player_id")
     private int playerId;
+    @Column(name = "number_red_card")
+    private int numberRedCard;
+    @Column(name = "number_yalow_card")
+    private int numberYalowCard;
+    @Column(name = "elimination_period")
+    private int eliminationPeriod;
 
 }
