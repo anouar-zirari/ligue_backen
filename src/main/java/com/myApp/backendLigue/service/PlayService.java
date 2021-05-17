@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-//@Service
+@Service
 public class PlayService {
-/*
+
     @Autowired
     private PlayRepository playRepository;
 
@@ -24,5 +24,5 @@ public class PlayService {
         return this.playRepository.findById(id);
     }
 
- */
+
 }

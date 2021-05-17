@@ -11,7 +11,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/play")
 public class PlayController {
-/*
+
     @Autowired
     private PlayService playService;
 
@@ -25,5 +25,5 @@ public class PlayController {
     public Optional<Play> findById(@PathVariable("id") Long id){
         return this.playService.findById(id);
     }
-*/
+
 }

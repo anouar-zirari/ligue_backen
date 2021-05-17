@@ -39,12 +39,12 @@ CREATE TABLE player(
 );
 
 CREATE TABLE play(
-
+    play_id INT AUTO_INCREMENT,
     number_red_card INT,
     number_yalow_card INT,
+    number_game_susponded INT,
     game_id INT NOT NULL,
     player_id INT NOT NULL,
-    number_game_susponded INT,
     PRIMARY KEY (game_id, player_id),
     FOREIGN KEY (game_id) REFERENCES game(game_id),
     FOREIGN key (player_id) REFERENCES player(player_id)
