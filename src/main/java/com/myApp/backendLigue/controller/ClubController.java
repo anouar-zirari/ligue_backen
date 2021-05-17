@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/club")
 public class ClubController {
     @Autowired
-    ClubService clubService;
+    private ClubService clubService;
 
     @RequestMapping("/findAllClub")
     public List<Club> findAll(){

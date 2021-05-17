@@ -11,7 +11,7 @@ import java.util.List;
 public class PlayerService {
 
     @Autowired
-    PlayerRepository playerRepository;
+    private PlayerRepository playerRepository;
 
     public List<Player> findAll(){
         return this.playerRepository.findAll();

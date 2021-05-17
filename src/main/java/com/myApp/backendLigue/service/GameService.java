@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class GameService {
     @Autowired
-    GameRepository gameRepository;
+    private GameRepository gameRepository;
 
     public List<Game> findAll(){
         return this.gameRepository.findAll();

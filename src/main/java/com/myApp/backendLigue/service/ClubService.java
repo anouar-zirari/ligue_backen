@@ -11,7 +11,7 @@ import java.util.List;
 public class ClubService {
 
     @Autowired
-    ClubRepo clubRepository;
+    private ClubRepo clubRepository;
 
     public List<Club> findAll(){
         return this.clubRepository.findAll();
