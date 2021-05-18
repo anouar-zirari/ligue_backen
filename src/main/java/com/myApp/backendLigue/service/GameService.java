@@ -10,9 +10,13 @@ import java.util.List;
 @Service
 public class GameService {
     @Autowired
-    GameRepository gameRepository;
+    private GameRepository gameRepository;
 
     public List<Game> findAll(){
         return this.gameRepository.findAll();
+    }
+
+    public List<Game> findByRoundId(Long id){
+        return this.gameRepository.findByRoundId(id);
     }
 }
