@@ -13,11 +13,9 @@ public class PlayerPlaningRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<PlayerResponse> getPlayerForClub(String clubName){
-        String query = "SELECT P.player_first_name, P.player_last_name, P.player_shirt_number\n" +
-                ",C.CLUB_NAME\n" +
-                "FROM PLAYER P INNER JOIN CLUB C ON P.CLUB_ID = C.CLUB_ID\n" +
-                "WHERE C.CLUB_Name = " + clubName;
+    public List<PlayerResponse> getPlayerForClub(Long id){
+        String query = "\n" +
+                "SELECT P.player_first_name as playerFirstName, P.player_last_name as PlayerLastName, P.player_shirt_number as playerShirtNumber ,C.CLUB_NAME as clubName FROM PLAYER P INNER JOIN CLUB C ON P.CLUB_ID = C.CLUB_ID WHERE C.CLUB_ID = " + id;
 
         List<PlayerResponse> playerResponses = this.jdbcTemplate.query(query,
                 (rs, rowNum)-> new PlayerResponse(rs.getString("playerFirstName"),

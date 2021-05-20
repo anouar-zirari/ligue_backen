@@ -15,8 +15,7 @@ public class GamePlaningRepository {
 
     public List<GameResponse> getGamesForRound(Long roundId) {
 
-        String query = "SELECT HOST.CLUB_NAME as hostName, HOST.CLUB_LOGO as hostLogo , VISITOR.CLUB_NAME as visitorName, VISITOR.CLUB_LOGO as visitorLogo" +
-                " FROM ROUNDS R INNER JOIN GAME G INNER JOIN CLUB HOST" +
+        String query = "SELECT HOST.CLUB_NAME as hostName, HOST.CLUB_LOGO as hostLogo , VISITOR.CLUB_NAME as visitorName, VISITOR.CLUB_LOGO as visitorLogo FROM ROUNDS R INNER JOIN GAME G INNER JOIN CLUB HOST" +
                 " INNER JOIN CLUB VISITOR ON R.ROUND_ID = G.ROUND_ID " +
                 "AND G.HOST_TEAM_ID = HOST.CLUB_ID AND G.VISITOR_TEAM_ID = VISITOR.CLUB_ID " +
                 "WHERE R.ROUND_ID = " + roundId;

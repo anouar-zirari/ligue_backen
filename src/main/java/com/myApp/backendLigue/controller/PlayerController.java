@@ -27,8 +27,8 @@ public class PlayerController {
         return this.playerService.findAll();
     }
 
-    @GetMapping("/findClub/{clubName}")
-    public List<PlayerResponse> findplayerForClub(@PathVariable("clubName") String clubName){
-        return this.playerPlaningRepository.getPlayerForClub(clubName);
+    @GetMapping("/findClub/{id}")
+    public List<PlayerResponse> findplayerForClub(@PathVariable("id") Long id){
+        return this.playerPlaningRepository.getPlayerForClub(id);
     }
 }
