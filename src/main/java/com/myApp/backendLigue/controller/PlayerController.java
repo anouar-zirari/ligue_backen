@@ -1,12 +1,11 @@
 package com.myApp.backendLigue.controller;
 
+import com.myApp.backendLigue.dto.PlayerResponse;
 import com.myApp.backendLigue.entity.Player;
+import com.myApp.backendLigue.repository.PlayerPlaningRepository;
 import com.myApp.backendLigue.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,8 +19,16 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
+    @Autowired
+    private PlayerPlaningRepository playerPlaningRepository;
+
     @GetMapping("/findAllPlayers")
     public List<Player> findAllPlayers(){
         return this.playerService.findAll();
+    }
+
+    @GetMapping("/findClub/{clubName}")
+    public List<PlayerResponse> findplayerForClub(@PathVariable("clubName") String clubName){
+        return this.playerPlaningRepository.getPlayerForClub(clubName);
     }
 }
