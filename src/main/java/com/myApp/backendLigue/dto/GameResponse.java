@@ -15,7 +15,9 @@ public class GameResponse {
 
     private String hostName;
     private String hostLogo;
+    private Long hostId;
     private String visitorName;
     private String visitorLogo;
+    private Long visitorId;
 
 }

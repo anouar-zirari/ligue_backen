@@ -15,6 +15,6 @@ public class PlayerResponse {
     private String playerFirstName;
     private String PlayerLastName;
     private int playerShirtNumber;
-    private String clubName;
+
 
 }
