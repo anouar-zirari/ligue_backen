@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -19,5 +20,7 @@ public class GameResponse {
     private String visitorName;
     private String visitorLogo;
     private Long visitorId;
+    private Date gameDate;
+    private Long gameId;
 
 }

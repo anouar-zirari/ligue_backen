@@ -17,9 +17,9 @@ public class Player {
     @Column(name = "player_last_name")
     private String playerLastName;
     @Column(name = "player_shirt_number")
-    private int player_shirt_number;
+    private int playerShirtNumber;
     @Column(name = "club_id")
-    private Long club_id;
+    private Long clubId;
 
 
 
