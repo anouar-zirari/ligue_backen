@@ -42,8 +42,8 @@ public class PlayService {
 
 
     public void saveRedCard(Play play){
-
-        this.playRepository.save(play);
+        if(this.playRepository.findById(this.playId).get().getNumberRedCard() != 1)
+            this.playRepository.save(play);
 
     }
 
