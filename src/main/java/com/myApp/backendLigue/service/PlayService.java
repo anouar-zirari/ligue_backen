@@ -11,8 +11,11 @@ import java.util.Optional;
 @Service
 public class PlayService {
 
+    // checking yellow card value
     private boolean check = false;
     private Long playId;
+
+
     @Autowired
     private PlayRepository playRepository;
 
@@ -33,11 +36,19 @@ public class PlayService {
             this.playId = play.getPlayId();
 
             this.check = true;
+
         }
     }
 
 
+    public void saveRedCard(Play play){
+
+        this.playRepository.save(play);
+
+    }
+
     public Optional<Play> findById(Long id) {
         return this.playRepository.findById(id);
     }
+
 }

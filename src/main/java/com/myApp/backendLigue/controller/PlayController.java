@@ -16,11 +16,15 @@ public class PlayController {
     @Autowired
     private PlayService playService;
 
-    @PostMapping("/save")
+    @PostMapping("/save/yellow-card")
     public void save(@RequestBody Play play){
         this.playService.save(play);
     }
 
+    @PostMapping("/save/red-card")
+    public void saveRedCard(@RequestBody Play play){
+        this.playService.saveRedCard(play);
+    }
 
     @GetMapping("findById/{id}")
     public Optional<Play> findById(@PathVariable("id") Long id){
