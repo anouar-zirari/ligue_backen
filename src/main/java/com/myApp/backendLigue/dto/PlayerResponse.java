@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class PlayerResponse {
-
+    private Long playerId;
     private String playerFirstName;
     private String PlayerLastName;
     private int playerShirtNumber;
