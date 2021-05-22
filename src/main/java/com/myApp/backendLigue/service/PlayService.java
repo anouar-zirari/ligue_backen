@@ -11,14 +11,30 @@ import java.util.Optional;
 @Service
 public class PlayService {
 
+    private boolean check = false;
+    private Long playId;
     @Autowired
     private PlayRepository playRepository;
 
 
     public void save(Play play) {
-        this.playRepository.save(play);
-    }
 
+
+        if (this.check == true){
+
+            this.playRepository.findById(this.playId).get().setNumberYalowCard(0);
+            this.playRepository.findById(this.playId).get().setNumberRedCard(1);
+            this.playRepository.save(this.playRepository.findById(this.playId).get());
+            this.check = false;
+
+        }else {
+
+            this.playRepository.save(play);
+            this.playId = play.getPlayId();
+
+            this.check = true;
+        }
+    }
 
 
     public Optional<Play> findById(Long id) {
