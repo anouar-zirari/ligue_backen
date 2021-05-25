@@ -24,7 +24,6 @@ public class Play {
     private int numberRedCard;
     @Column(name = "number_yalow_card")
     private int numberYalowCard;
-    @Column(name = "elimination_period")
-    private int eliminationPeriod;
+
 
 }
