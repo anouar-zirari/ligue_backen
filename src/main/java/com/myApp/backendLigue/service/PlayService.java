@@ -28,7 +28,7 @@ public class PlayService {
     private PlayPlaningRepository playPlaningRepository;
 
 
-
+    // save yellow card (4 yellow count 1 red)
     public void save(Play play){
         if (!this.playRepository.findAll().isEmpty()) {
             this.playRepository.findAll().forEach(p -> {
