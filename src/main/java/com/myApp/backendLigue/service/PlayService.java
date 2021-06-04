@@ -16,7 +16,8 @@ public class PlayService {
 
     // checking yellow card value
     private boolean check = false;
-    private Long playId;
+    private Long playRedId;
+    private Long playYellowId;
     private int yellowNumber = 0;
 
 
@@ -27,23 +28,32 @@ public class PlayService {
     private PlayPlaningRepository playPlaningRepository;
 
 
-    // save yellow cards
-    public void save(Play play) {
-        System.out.println("hellow anouar");
 
-        if (this.check == true){
+    public void save(Play play){
+        if (!this.playRepository.findAll().isEmpty()) {
+            this.playRepository.findAll().forEach(p -> {
+                if (p.getPlayerId() == play.getPlayerId() && p.getNumberYalowCard() <= 3) {
+                    System.out.println("this player " + play.getPlayerId() + " exist in the database" + "hes play id is"
+                    + p.getPlayId());
+                   // this.playYellowId = p.getPlayId();
+                    this.playRepository.findById(p.getPlayId()).get().
+                            setNumberYalowCard(this.playRepository.findById(p.getPlayId()).get().getNumberYalowCard() + 1);
+                    this.playRepository.save(this.playRepository.findById(p.getPlayId()).get());
 
-            this.playRepository.findById(this.playId).get().setNumberYalowCard(1);
-            this.playRepository.save(this.playRepository.findById(this.playId).get());
-            this.check = false;
+                } else if (p.getNumberYalowCard() == 4){
+                    System.out.println("this player hes 3 yellow cards");
+                    this.playRepository.findById(p.getPlayId()).get().setNumberRedCard(1);
+                    this.playRepository.findById(p.getPlayId()).get().setNumberYalowCard(0);
+                    this.playRepository.save(this.playRepository.findById(p.getPlayId()).get());
 
-        }else {
-
+                }else{
+                    System.out.println("this player not exist in the database " + play.getPlayerId());
+                    this.playRepository.save(play);
+                }
+            });
+        }else{
+            System.out.println("your out of the for each loop");
             this.playRepository.save(play);
-            this.playId = play.getPlayId();
-
-            this.check = true;
-
         }
     }
 
@@ -51,7 +61,7 @@ public class PlayService {
 
     // save red cards
     public void saveRedCard(Play play){
-        if(this.playRepository.findById(this.playId).get().getNumberRedCard() != 1)
+        if(this.playRepository.findById(this.playRedId).get().getNumberRedCard() != 1)
             this.playRepository.save(play);
 
     }

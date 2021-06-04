@@ -1,6 +1,7 @@
 package com.myApp.backendLigue.controller;
 import com.myApp.backendLigue.dto.PlayResponse;
 import com.myApp.backendLigue.entity.Play;
+import com.myApp.backendLigue.repository.PlayRepository;
 import com.myApp.backendLigue.service.PlayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,9 @@ public class PlayController {
     @Autowired
     private PlayService playService;
 
+    @Autowired
+    PlayRepository playRepository;
+
     @PostMapping("/save/yellow-card")
     public void save(@RequestBody Play play){
         this.playService.save(play);
@@ -33,9 +37,14 @@ public class PlayController {
         return this.playService.getPlayInfo();
     }
 
-    @GetMapping("findById/{id}")
+    @GetMapping("/findById/{id}")
     public Optional<Play> findById(@PathVariable("id") Long id){
         return this.playService.findById(id);
+    }
+
+    @GetMapping("/findall")
+    public List<Play> findAll(){
+        return this.playRepository.findAll();
     }
 
 }
