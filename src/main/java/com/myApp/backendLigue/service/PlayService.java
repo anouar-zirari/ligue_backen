@@ -28,46 +28,34 @@ public class PlayService {
     private PlayPlaningRepository playPlaningRepository;
 
 
-    // save yellow card (4 yellow count 1 red)
-    public void save(Play play){
-        if (!this.playRepository.findAll().isEmpty()) {
-            this.playRepository.findAll().forEach(p -> {
-                if (p.getPlayerId() == play.getPlayerId() && p.getNumberYalowCard() <= 3) {
-                    System.out.println("this player " + play.getPlayerId() + " exist in the database" + "hes play id is"
-                    + p.getPlayId());
-                   // this.playYellowId = p.getPlayId();
-                    this.playRepository.findById(p.getPlayId()).get().
-                            setNumberYalowCard(this.playRepository.findById(p.getPlayId()).get().getNumberYalowCard() + 1);
-                    this.playRepository.save(this.playRepository.findById(p.getPlayId()).get());
-
-                } else if (p.getNumberYalowCard() == 4){
-                    System.out.println("this player hes 3 yellow cards");
-                    this.playRepository.findById(p.getPlayId()).get().setNumberRedCard(1);
-                    this.playRepository.findById(p.getPlayId()).get().setNumberYalowCard(0);
-                    this.playRepository.save(this.playRepository.findById(p.getPlayId()).get());
-
-                }else{
-                    System.out.println("this player not exist in the database " + play.getPlayerId());
-                    this.playRepository.save(play);
-                }
-            });
-        }else{
-            System.out.println("your out of the for each loop");
-            this.playRepository.save(play);
+    public void addYellowOrRedCard(int gameId, int playerId, int numberOfRedCard, int numberOfYellowCard) {
+        List<Play> plays = this.playRepository.findByGameIdAndPlayerId(gameId, playerId);
+        Play play;
+        if (plays.isEmpty()) {
+            play = new Play(gameId, playerId, numberOfRedCard, numberOfYellowCard);
+            playRepository.save(play);
+        } else {
+            play = plays.get(0);
+            int numberOfRedCardAlreadyGiven = play.getNumberRedCard();
+            int numberOfYellowCardAlreadyGiven = play.getNumberYalowCard();
+            if (numberOfRedCardAlreadyGiven > 0) {
+                System.out.println("Le joueur a déjà un carton rouge");
+            } else if (numberOfYellowCardAlreadyGiven > 1) {
+                System.out.println("Le joueur a déjà " + numberOfYellowCardAlreadyGiven + " cartons jaunes");
+            } else {
+                // le joueur à un seul carton jaune
+                System.out.println("le joueur à un seul carton jaune");
+                play.setNumberYalowCard(2);
+                play.setNumberRedCard(1);
+                playRepository.save(play);
+            }
         }
     }
 
 
 
-    // save red cards
-    public void saveRedCard(Play play){
-        if(this.playRepository.findById(this.playRedId).get().getNumberRedCard() != 1)
-            this.playRepository.save(play);
-
-    }
-
     // return all player with red and yellow card number
-    public List<PlayResponse> getPlayInfo(){
+    public List<PlayResponse> getPlayInfo() {
         return this.playPlaningRepository.getPlayInfo();
     }
 

@@ -2,12 +2,14 @@ package com.myApp.backendLigue.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode
 @Entity
+@NoArgsConstructor
 public class Play {
 
     // add id to play class
@@ -15,6 +17,13 @@ public class Play {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "play_id")
     private Long playId;
+
+    public Play(int gameId, int playerId, int numberRedCard, int numberYalowCard) {
+        this.gameId = gameId;
+        this.playerId = playerId;
+        this.numberRedCard = numberRedCard;
+        this.numberYalowCard = numberYalowCard;
+    }
 
     @Column(name = "game_id")
     private int gameId;

@@ -24,12 +24,12 @@ public class PlayController {
 
     @PostMapping("/save/yellow-card")
     public void save(@RequestBody Play play){
-        this.playService.save(play);
+        this.playService.addYellowOrRedCard(play.getGameId(), play.getPlayerId(), play.getNumberRedCard(), play.getNumberYalowCard());
     }
 
     @PostMapping("/save/red-card")
     public void saveRedCard(@RequestBody Play play){
-        this.playService.saveRedCard(play);
+        this.playService.addYellowOrRedCard(play.getGameId(), play.getPlayerId(), play.getNumberRedCard(), play.getNumberYalowCard());
     }
 
     @GetMapping("/find-play-info")
