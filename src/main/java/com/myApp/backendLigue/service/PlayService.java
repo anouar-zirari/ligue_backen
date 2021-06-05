@@ -26,6 +26,8 @@ public class PlayService {
 
     @Autowired
     private PlayPlaningRepository playPlaningRepository;
+    @Autowired
+    private SanctionService sanctionService;
 
 
     public void addYellowOrRedCard(int gameId, int playerId, int numberOfRedCard, int numberOfYellowCard) {
@@ -33,6 +35,7 @@ public class PlayService {
         Play play;
         if (plays.isEmpty()) {
             play = new Play(gameId, playerId, numberOfRedCard, numberOfYellowCard);
+            sanctionService.addYellowOrRedCardsToSanction(Long.valueOf(playerId), numberOfRedCard, numberOfYellowCard);
             playRepository.save(play);
         } else {
             play = plays.get(0);
@@ -48,6 +51,7 @@ public class PlayService {
                 play.setNumberYalowCard(2);
                 play.setNumberRedCard(1);
                 playRepository.save(play);
+                sanctionService.addYellowOrRedCardsToSanction(Long.valueOf(playerId), numberOfRedCard, numberOfYellowCard);
             }
         }
     }

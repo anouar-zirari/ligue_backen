@@ -51,8 +51,45 @@ CREATE TABLE play(
     FOREIGN key (player_id) REFERENCES player(player_id)
 );
 
+CREATE TABLE sanction(
+     sanction_id INT AUTO_INCREMENT,
+     number_of_red_card INT,
+     number_of_yellow_card INT,
+     player_id INT NOT NULL,
+     executed BOOLEAN,
+     elimination_period INT,
+     description VARCHAR(500),
+     begin_date DATE,
+     PRIMARY KEY (sanction_id),
+     FOREIGN key (player_id) REFERENCES player(player_id)
+);
+
+CREATE TABLE referee(
+    referee_id INT AUTO_INCREMENT,
+    first_name VARCHAR(250) NOT NULL,
+    last_name VARCHAR(250) NOT NULL,
+    PRIMARY KEY (referee_id)
+);
+
+CREATE TABLE report(
+    report_id INT AUTO_INCREMENT,
+    referee_id INT NOT NULL,
+    player_id INT NOT NULL,
+    game_id INT NOT NULL,
+    report_txt VARCHAR(500) NOT NULL,
+    PRIMARY KEY (report_id),
+    FOREIGN key (referee_id) REFERENCES referee(referee_id),
+    FOREIGN key (player_id) REFERENCES player(player_id),
+    FOREIGN key (game_id) REFERENCES game(game_id)
+);
+
+ALTER TABLE game ADD COLUMN  referee_id INT;
+ALTER TABLE game ADD FOREIGN KEY (referee_id) REFERENCES referee(referee_id);
+
+
 DESC player;
 DESC club;
 DESC game;
 DESC rounds;
 DESC play;
+DESC sanction;

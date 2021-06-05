@@ -11,12 +11,13 @@ import java.util.Date;
 @EqualsAndHashCode
 @Entity
 @Table(schema = "league", name = "game")
-
 public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "game_id")
     private Long gameId;
+    @Column(name = "referee_id")
+    private Long refereeId;
     @Column(name = "game_date")
     private Date gameDate;
     @Column(name = "round_id")
