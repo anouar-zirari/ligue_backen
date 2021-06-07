@@ -20,7 +20,7 @@ public class PlayController {
     private PlayService playService;
 
     @Autowired
-    PlayRepository playRepository;
+    private PlayRepository playRepository;
 
     @PostMapping("/save/yellow-card")
     public void save(@RequestBody Play play){

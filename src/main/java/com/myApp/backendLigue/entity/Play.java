@@ -12,19 +12,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Play {
 
-    // add id to play class
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "play_id")
-    private Long playId;
-
     public Play(int gameId, int playerId, int numberRedCard, int numberYalowCard) {
         this.gameId = gameId;
         this.playerId = playerId;
         this.numberRedCard = numberRedCard;
         this.numberYalowCard = numberYalowCard;
     }
-
+    // add id to play class
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "play_id")
+    private Long playId;
     @Column(name = "game_id")
     private int gameId;
     @Column(name = "player_id")

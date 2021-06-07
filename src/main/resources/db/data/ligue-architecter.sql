@@ -23,6 +23,7 @@ CREATE TABLE game(
     round_id INT NOT NULL,
     host_team_id int not NULL,
     visitor_team_id int not null,
+    referee_id
     PRIMARY KEY (game_id),
     FOREIGN key (host_team_id) REFERENCES club (club_id),
     FOREIGN key (visitor_team_id) REFERENCES club (club_id),

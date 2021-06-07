@@ -45,17 +45,21 @@ public class PlayService {
                 System.out.println("Le joueur a déjà un carton rouge");
             } else if (numberOfYellowCardAlreadyGiven > 1) {
                 System.out.println("Le joueur a déjà " + numberOfYellowCardAlreadyGiven + " cartons jaunes");
+
             } else {
                 // le joueur à un seul carton jaune
                 System.out.println("le joueur à un seul carton jaune");
-                play.setNumberYalowCard(2);
-                play.setNumberRedCard(1);
+                if (numberOfRedCard == 0 && numberOfYellowCard == 1) {
+                    play.setNumberYalowCard(2);
+                    play.setNumberRedCard(1);
+                } else{
+                    play.setNumberRedCard(1);
+                }
                 playRepository.save(play);
                 sanctionService.addYellowOrRedCardsToSanction(Long.valueOf(playerId), numberOfRedCard, numberOfYellowCard);
             }
         }
     }
-
 
 
     // return all player with red and yellow card number
