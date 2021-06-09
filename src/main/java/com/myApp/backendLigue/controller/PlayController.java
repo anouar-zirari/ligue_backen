@@ -32,6 +32,7 @@ public class PlayController {
         this.playService.addYellowOrRedCard(play.getGameId(), play.getPlayerId(), play.getNumberRedCard(), play.getNumberYalowCard());
     }
 
+    // for the commission
     @GetMapping("/find-play-info")
     public List<PlayResponse> getPlayInfo(){
         return this.playService.getPlayInfo();

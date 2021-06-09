@@ -61,6 +61,12 @@ public class PlayService {
         }
     }
 
+    public void removeYellowOrRedCard(int playId, int gameId, int playerId, int numberOfRedCard, int numberOfYellowCard){
+        Optional<Play> plays = this.playRepository.findById((long) playId);
+        Play play;
+        System.out.println(plays);
+    }
+
 
     // return all player with red and yellow card number
     public List<PlayResponse> getPlayInfo() {

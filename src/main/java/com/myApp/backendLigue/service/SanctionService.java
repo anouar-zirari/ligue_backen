@@ -1,6 +1,8 @@
 package com.myApp.backendLigue.service;
 
+import com.myApp.backendLigue.dto.PlayerCommissionRespons;
 import com.myApp.backendLigue.entity.Sanction;
+import com.myApp.backendLigue.repository.PlayerCommissionRepository;
 import com.myApp.backendLigue.repository.SanctionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,9 @@ import java.util.List;
 public class SanctionService {
     @Autowired
     private SanctionRepository sanctionRepository;
+
+    @Autowired
+    private PlayerCommissionRepository playerCommissionRepository;
 
     public void addYellowOrRedCardsToSanction(Long playerId, int numberOfRedCards, int numberOfYellowCard) {
         Sanction sanction = findSanctionByPlayerId(playerId);
@@ -43,4 +48,11 @@ public class SanctionService {
         }
         return sanction;
     }
+
+
+    public List<PlayerCommissionRespons> getAllPlayerWithCards(){
+        return this.playerCommissionRepository.getAllPlayerWithCards();
+    }
+
+
 }
