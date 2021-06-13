@@ -1,6 +1,7 @@
 package com.myApp.backendLigue.controller;
 
 import com.myApp.backendLigue.dto.PlayerResponse;
+import com.myApp.backendLigue.dto.PlayerWithReportResponse;
 import com.myApp.backendLigue.entity.Player;
 import com.myApp.backendLigue.repository.PlayerPlaningRepository;
 import com.myApp.backendLigue.service.PlayerService;
@@ -22,6 +23,8 @@ public class PlayerController {
     @Autowired
     private PlayerPlaningRepository playerPlaningRepository;
 
+
+
     @GetMapping("/findAllPlayers")
     public List<Player> findAllPlayers(){
         return this.playerService.findAll();
@@ -31,4 +34,10 @@ public class PlayerController {
     public List<PlayerResponse> findplayerForClub(@PathVariable("id") Long id){
         return this.playerPlaningRepository.getPlayerForClub(id);
     }
+
+    @GetMapping("/round/{id}")
+    public List<PlayerWithReportResponse> getPlayersWithReportForRound(@PathVariable("id") Long id){
+       return this.playerPlaningRepository.getPlayerWithReportForRound(id);
+    }
+
 }
