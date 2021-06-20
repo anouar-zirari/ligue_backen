@@ -29,16 +29,18 @@ public class SanctionService {
     }
 
     // la commission fait la réunion pour sanctionner un joueur
-    public void applySanction(Long playerId, Long eliminationPeriod, String description){
+    public void applySanction(Long playerId, Long eliminationPeriod, String description) {
         Sanction sanction = findSanctionByPlayerId(playerId);
-        sanction.setEliminationPeriod(eliminationPeriod);
-        sanction.setDescription(description);
-        sanction.setExecuted(true);
-        sanction.setBeginDate(new Date());
-        sanctionRepository.save(sanction);
+        if (sanction.getNumberOfRedCard() == 1) {
+            sanction.setEliminationPeriod(eliminationPeriod);
+            sanction.setDescription(description);
+            sanction.setExecuted(true);
+            sanction.setBeginDate(new Date());
+            sanctionRepository.save(sanction);
+        }
     }
 
-    private Sanction findSanctionByPlayerId( Long playerId){
+    private Sanction findSanctionByPlayerId(Long playerId) {
         Sanction sanction;
         List<Sanction> sanctions = sanctionRepository.findByPlayerIdAndExecuted(playerId, false);
         if (!sanctions.isEmpty()) {
@@ -50,7 +52,7 @@ public class SanctionService {
     }
 
 
-    public List<PlayerCommissionRespons> getAllPlayerWithCards(){
+    public List<PlayerCommissionRespons> getAllPlayerWithCards() {
         return this.playerCommissionRepository.getAllPlayerWithCards();
     }
 
