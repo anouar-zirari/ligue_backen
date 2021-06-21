@@ -1,7 +1,9 @@
 package com.myApp.backendLigue.controller;
 
 import com.myApp.backendLigue.dto.PlayerResponse;
+import com.myApp.backendLigue.dto.PlayerWithRedCard;
 import com.myApp.backendLigue.dto.PlayerWithReportResponse;
+import com.myApp.backendLigue.dto.PlayerWithYellowCard;
 import com.myApp.backendLigue.entity.Player;
 import com.myApp.backendLigue.repository.PlayerPlaningRepository;
 import com.myApp.backendLigue.service.PlayerService;
@@ -38,6 +40,16 @@ public class PlayerController {
     @GetMapping("/round/{id}")
     public List<PlayerWithReportResponse> getPlayersWithReportForRound(@PathVariable("id") Long id){
        return this.playerPlaningRepository.getPlayerWithReportForRound(id);
+    }
+
+    @GetMapping("/game/yellow-cards/{id}")
+    public List<PlayerWithYellowCard> getPlayerWithYellowCardForGame(@PathVariable("id") Long gameId){
+        return this.playerPlaningRepository.getPlayerWithYellowCardForGame(gameId);
+    }
+
+    @GetMapping("/game/red-cards/{id}")
+    public List<PlayerWithRedCard> getPlayerWithRedCardForGame(@PathVariable("id") Long gameId){
+        return this.playerPlaningRepository.getPlayerWithRedCardForGame(gameId);
     }
 
 }

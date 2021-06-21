@@ -1,7 +1,9 @@
 package com.myApp.backendLigue.repository;
 
 import com.myApp.backendLigue.dto.PlayerResponse;
+import com.myApp.backendLigue.dto.PlayerWithRedCard;
 import com.myApp.backendLigue.dto.PlayerWithReportResponse;
+import com.myApp.backendLigue.dto.PlayerWithYellowCard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -39,6 +41,56 @@ public class PlayerPlaningRepository {
         );
 
         return playerWithReportResponses;
+    }
+
+    public List<PlayerWithYellowCard> getPlayerWithYellowCardForGame(Long gameId){
+        String query = "select \n" +
+                "P.player_id as playerId, \n" +
+                "P.player_shirt_number as playerShirtNumber,\n" +
+                "Pl.play_id as playId, \n" +
+                "P.player_first_name as playerFirstName, \n" +
+                "P.player_last_name as playerLastName,\n" +
+                "Pl.number_yalow_card as numberYellowCards\n" +
+                "from player P inner join play Pl inner join game G \n" +
+                "on P.player_id = Pl.player_id and Pl.game_id = G.game_id \n" +
+                "where Pl.number_yalow_card > 0 and G.game_id = " + gameId;
+        List<PlayerWithYellowCard> playerWithYellowCards = this.jdbcTemplate.query(
+                query,
+                (rs, rowNum) -> new PlayerWithYellowCard(
+                        rs.getLong("playerId"),
+                        rs.getLong("playId"),
+                        rs.getInt("playerShirtNumber"),
+                        rs.getString("playerFirstName"),
+                        rs.getString("playerLastName"),
+                        rs.getInt("numberYellowCards")
+                )
+        );
+        return playerWithYellowCards;
+    }
+
+    public List<PlayerWithRedCard> getPlayerWithRedCardForGame(Long gameId){
+        String query = "select \n" +
+                "P.player_id as playerId, \n" +
+                "P.player_shirt_number as playerShirtNumber,\n" +
+                "Pl.play_id as playId, \n" +
+                "P.player_first_name as playerFirstName, \n" +
+                "P.player_last_name as playerLastName,\n" +
+                "Pl.number_red_card as numberRedCard\n" +
+                "from player P inner join play Pl inner join game G " +
+                "on P.player_id = Pl.player_id and Pl.game_id = G.game_id \n" +
+                "where Pl.number_red_card > 0 and G.game_id = " + gameId;
+        List<PlayerWithRedCard> playerWithRedCards = this.jdbcTemplate.query(
+                query,
+                (rs, numRow) -> new PlayerWithRedCard(
+                        rs.getLong("playerId"),
+                        rs.getLong("playId"),
+                        rs.getInt("playerShirtNumber"),
+                        rs.getString("playerFirstName"),
+                        rs.getString("playerLastName"),
+                        rs.getInt("numberRedCard")
+                )
+        );
+        return playerWithRedCards;
     }
 
 
