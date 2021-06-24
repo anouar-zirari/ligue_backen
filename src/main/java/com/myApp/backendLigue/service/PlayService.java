@@ -52,7 +52,7 @@ public class PlayService {
                 if (numberOfRedCard == 0 && numberOfYellowCard == 1) {
                     play.setNumberYalowCard(2);
                     play.setNumberRedCard(1);
-                } else{
+                } else {
                     play.setNumberRedCard(1);
                 }
                 playRepository.save(play);
@@ -61,10 +61,38 @@ public class PlayService {
         }
     }
 
-    public void removeYellowOrRedCard(int playId, int gameId, int playerId, int numberOfRedCard, int numberOfYellowCard){
-        Optional<Play> plays = this.playRepository.findById((long) playId);
-        Play play;
-        System.out.println(plays);
+    public void removeYellowOrRedCard(Long playId, String yellowOrRed) {
+        Play play = this.playRepository.getOne(playId);
+        int numberRedCardGiven = play.getNumberRedCard();
+        int numberYellowCardGiven = play.getNumberYalowCard();
+        int playerId = play.getPlayerId();
+        // delete a yellow card work
+        if (yellowOrRed.equals("yellow") && numberYellowCardGiven > 0) {
+            int newYellowCard = numberYellowCardGiven - 1;
+            play.setNumberYalowCard(newYellowCard);
+            int yellowCardUpdated = play.getNumberYalowCard();
+            if (yellowCardUpdated > 0 || numberRedCardGiven > 0) {
+                this.playRepository.save(play);
+                this.sanctionService.
+                        removeYellowOrRedCardToSanction
+                                ((long) playerId, "yellow", numberRedCardGiven, yellowCardUpdated);
+            } else if (yellowCardUpdated == 0 && numberRedCardGiven == 0) {
+                this.playRepository.delete(play);
+                this.sanctionService.
+                        removeYellowOrRedCardToSanction
+                                ((long) playerId, "yellow", 0, 0);
+            }
+        }else if(yellowOrRed.equals("red") && numberRedCardGiven > 0){
+            play.setNumberRedCard(numberRedCardGiven - 1);
+            this.playRepository.save(play);
+            int redCardUpdated = play.getNumberRedCard();
+            if(redCardUpdated == 0 && numberYellowCardGiven == 0){
+                this.playRepository.delete(play);
+            }
+            this.sanctionService.removeYellowOrRedCardToSanction
+                    ((long) playerId, "red", numberRedCardGiven, numberYellowCardGiven);
+
+        }
     }
 
 

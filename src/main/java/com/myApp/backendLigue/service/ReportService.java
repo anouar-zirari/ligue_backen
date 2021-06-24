@@ -24,4 +24,18 @@ public class ReportService {
         report.setReportTxt(reportTxt);
         reportRepository.save(report);
     }
+
+    public void removeReport(Long gameId, Long playerId){
+        List<Report> reports = this.reportRepository.findByGameIdAndPlayerId(gameId, playerId);
+        if(!reports.isEmpty()) {
+            Report report = reports.get(0);
+            this.reportRepository.delete(report);
+        }
+    }
+
+    public void updateReport(Long reportId, String reportTxt){
+        Report report = this.reportRepository.getOne(reportId);
+        report.setReportTxt(reportTxt);
+        this.reportRepository.save(report);
+    }
 }

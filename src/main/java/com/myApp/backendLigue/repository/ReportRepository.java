@@ -10,4 +10,5 @@ import java.util.List;
 public interface ReportRepository extends JpaRepository<Report, Long> {
 
     List<Report> findByRefereeIdAndPlayerIdAndGameId(Long refereeId, Long playerId, Long gameId);
+    List<Report> findByGameIdAndPlayerId(Long id, Long gameId);
 }

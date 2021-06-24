@@ -1,9 +1,6 @@
 package com.myApp.backendLigue.repository;
 
-import com.myApp.backendLigue.dto.PlayerResponse;
-import com.myApp.backendLigue.dto.PlayerWithRedCard;
-import com.myApp.backendLigue.dto.PlayerWithReportResponse;
-import com.myApp.backendLigue.dto.PlayerWithYellowCard;
+import com.myApp.backendLigue.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -91,6 +88,33 @@ public class PlayerPlaningRepository {
                 )
         );
         return playerWithRedCards;
+    }
+
+    public List<PlayerWithReport> getPlayerWithReportForGame(Long gameId){
+        String query = "select \n" +
+                "R.report_id as id," +
+                "P.player_id as playerId, \n" +
+                "G.game_id as gameId, \n" +
+                "P.player_shirt_number as playerShirtNumber,\n" +
+                "P.player_first_name as playerFirstName, \n" +
+                "P.player_last_name as playerLastName,\n" +
+                "R.report_txt as reportTxt\n" +
+                "from player P inner join report R inner join game G\n" +
+                "on P.player_id = R.player_id and G.game_id = R.game_id\n" +
+                "where G.game_id = " + gameId;
+        List<PlayerWithReport> playerWithReports = this.jdbcTemplate.query(
+                query,
+                (rs, numRow) -> new PlayerWithReport(
+                        rs.getLong("id"),
+                        rs.getLong("playerId"),
+                        rs.getLong("gameId"),
+                        rs.getInt("playerShirtNumber"),
+                        rs.getString("playerFirstName"),
+                        rs.getString("playerLastName"),
+                        rs.getString("reportTxt")
+                )
+        );
+        return playerWithReports;
     }
 
 
