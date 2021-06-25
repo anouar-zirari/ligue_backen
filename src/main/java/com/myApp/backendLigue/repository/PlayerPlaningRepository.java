@@ -117,6 +117,42 @@ public class PlayerPlaningRepository {
         return playerWithReports;
     }
 
+    public List<PlayerOfClubInfo> getPlayerOfClubInfo(Long clubId){
+        String query = "select \n" +
+                "P.player_id as playerId, \n" +
+                "C.club_id as clubId,\n" +
+                "S.sanction_id as sanctionId,\n" +
+                "P.player_shirt_number as playerShirtNumber, \n" +
+                "P.player_first_name as playerFirstName,\n" +
+                "P.player_last_name as playerLastName,\n" +
+                "C.club_name as clubName,\n" +
+                "C.club_logo as clubLogo,\n" +
+                "S.number_of_yellow_card as numberYellowCard,\n" +
+                "S.number_of_red_card as numberRedCard,\n" +
+                "S.elimination_period as eliminationPeriod,\n" +
+                "S.description as description\n" +
+                "from club C inner join player P on C.club_id = P.club_id left join sanction S \n" +
+                "on S.player_id = P.player_id where C.club_id = " + clubId;
+        List<PlayerOfClubInfo> playerOfClubInfos = this.jdbcTemplate.query(
+                query,
+                (rs, rowNum) -> new PlayerOfClubInfo(
+                        rs.getLong("playerId"),
+                        rs.getLong("clubId"),
+                        rs.getLong("sanctionId"),
+                        rs.getInt("playerShirtNumber"),
+                        rs.getString("playerFirstName"),
+                        rs.getString("playerLastName"),
+                        rs.getString("clubName"),
+                        rs.getString("clubLogo"),
+                        rs.getInt("numberYellowCard"),
+                        rs.getInt("numberRedCard"),
+                        rs.getInt("eliminationPeriod"),
+                        rs.getString("description")
+                )
+        );
+        return playerOfClubInfos;
+    }
+
 
 
 }

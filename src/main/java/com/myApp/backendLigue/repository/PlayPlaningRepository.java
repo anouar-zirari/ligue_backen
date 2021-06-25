@@ -3,6 +3,7 @@ package com.myApp.backendLigue.repository;
 
 import com.myApp.backendLigue.dto.PlayRefereeResponse;
 import com.myApp.backendLigue.dto.PlayResponse;
+import com.myApp.backendLigue.dto.PlayerOfClubInfo;
 import com.myApp.backendLigue.entity.Play;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -55,6 +56,8 @@ public class PlayPlaningRepository {
         return playRefereeResponses;
 
     }
+
+
 
 
 }
