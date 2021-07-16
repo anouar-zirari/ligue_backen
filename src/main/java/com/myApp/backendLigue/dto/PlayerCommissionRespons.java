@@ -13,15 +13,12 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 public class PlayerCommissionRespons {
-    private Long playerId;
-    private Long clubId;
     private String clubName;
     private int playerShirtNumber;
     private String playerFirstName;
     private String playerLastName;
     private int numberYellowCard;
     private int numberRedCard;
-    private Date gameDate;
-    private String reportTxt;
-    private Long roundId;
+    private int eliminationPeriod;
+
 }

@@ -6,7 +6,6 @@ import com.myApp.backendLigue.repository.PlayerCommissionRepository;
 import com.myApp.backendLigue.repository.SanctionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class SanctionService {
         sanction.setNumberOfRedCard(numberOfRedCardAlreadyGiven + numberOfRedCards);
         sanction.setNumberOfYellowCard(numberOfYellowCardAlreadyGiven + numberOfYellowCard);
         int numberOfYellowCardAfterUpdate = sanction.getNumberOfYellowCard();
-        if(numberOfYellowCardAfterUpdate == 2){
+        if(numberOfYellowCardAfterUpdate == 4){
             sanction.setNumberOfRedCard(1);
         }
         sanctionRepository.save(sanction);
@@ -35,11 +34,12 @@ public class SanctionService {
     public void removeYellowOrRedCardToSanction
             (Long playerId, String yellowOrRedCard, int numberOfRedCard, int numberOfYellowCard){
         Sanction sanction = findSanctionByPlayerId(playerId);
+        int numberOfYellowCardGiven = sanction.getNumberOfYellowCard();
         if( (numberOfRedCard > 0 || numberOfYellowCard > 0) && yellowOrRedCard.equals("yellow")){
-            sanction.setNumberOfYellowCard(numberOfYellowCard);
+            sanction.setNumberOfYellowCard(numberOfYellowCardGiven - numberOfYellowCard);
             sanction.setNumberOfRedCard(numberOfRedCard);
             this.sanctionRepository.save(sanction);
-        }else if(numberOfRedCard == 0 && numberOfYellowCard == 0){
+        }else if(numberOfRedCard == 0 && numberOfYellowCardGiven == 0){
             this.sanctionRepository.delete(sanction);
         }else if(yellowOrRedCard.equals("red") && numberOfRedCard > 0){
             sanction.setNumberOfRedCard(numberOfRedCard - 1);

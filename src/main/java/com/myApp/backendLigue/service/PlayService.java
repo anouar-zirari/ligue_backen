@@ -43,15 +43,15 @@ public class PlayService {
             int numberOfYellowCardAlreadyGiven = play.getNumberYalowCard();
             if (numberOfRedCardAlreadyGiven > 0) {
                 System.out.println("Le joueur a déjà un carton rouge");
-            } else if (numberOfYellowCardAlreadyGiven > 1) {
-                System.out.println("Le joueur a déjà " + numberOfYellowCardAlreadyGiven + " cartons jaunes");
+            } else if (numberOfYellowCardAlreadyGiven > 1 && numberOfRedCardAlreadyGiven > 0) {
+                System.out.println("Le joueur a déjà " + numberOfYellowCardAlreadyGiven + " cartons jaunes" );
 
             } else {
                 // le joueur à un seul carton jaune
                 System.out.println("le joueur à un seul carton jaune");
                 if (numberOfRedCard == 0 && numberOfYellowCard == 1) {
                     play.setNumberYalowCard(2);
-                    play.setNumberRedCard(1);
+                    //play.setNumberRedCard(1);
                 } else {
                     play.setNumberRedCard(1);
                 }
