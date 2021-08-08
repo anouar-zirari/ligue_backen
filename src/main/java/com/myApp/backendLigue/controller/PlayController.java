@@ -23,12 +23,12 @@ public class PlayController {
     private PlayRepository playRepository;
 
     @PostMapping("/save/yellow-card")
-    public void save(@RequestBody Play play){
-        this.playService.addYellowOrRedCard(play.getGameId(), play.getPlayerId(), play.getNumberRedCard(), play.getNumberYalowCard());
+    public void save(@RequestBody Play play) throws Exception {
+        this.playService.addYellowCard(play.getGameId(), play.getPlayerId(), play.getNumberYalowCard());
     }
 
     @PostMapping("/save/red-card")
-    public void saveRedCard(@RequestBody Play play){
+    public void saveRedCard(@RequestBody Play play) throws Exception{
         this.playService.addYellowOrRedCard(play.getGameId(), play.getPlayerId(), play.getNumberRedCard(), play.getNumberYalowCard());
     }
 

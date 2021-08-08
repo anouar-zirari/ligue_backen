@@ -10,4 +10,5 @@ import java.util.List;
 public interface SanctionRepository extends JpaRepository<Sanction, Long> {
 
     List<Sanction> findByPlayerIdAndExecuted(Long playerId, Boolean executed);
+    List<Sanction> findByPlayerId(Long playerId);
 }

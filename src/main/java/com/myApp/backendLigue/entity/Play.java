@@ -12,21 +12,34 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Play {
 
-    public Play(int gameId, int playerId, int numberRedCard, int numberYalowCard) {
+    public Play(Long gameId, Long playerId, int numberRedCard, int numberYalowCard) {
         this.gameId = gameId;
         this.playerId = playerId;
         this.numberRedCard = numberRedCard;
         this.numberYalowCard = numberYalowCard;
     }
+    // for add a yellow card
+    public Play(Long gameId, Long playerId, int numberYalowOrRedCard, String yellowOrRed){
+        this.gameId = gameId;
+        this.playerId = playerId;
+        if(yellowOrRed.equals("red")){
+            this.numberYalowCard = numberYalowOrRedCard;
+        }
+        if(yellowOrRed.equals("yellow")){
+            this.numberYalowCard = numberYalowOrRedCard;
+        }
+
+    }
+
     // add id to play class
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "play_id")
     private Long playId;
     @Column(name = "game_id")
-    private int gameId;
+    private Long gameId;
     @Column(name = "player_id")
-    private int playerId;
+    private Long playerId;
     @Column(name = "number_red_card")
     private int numberRedCard;
     @Column(name = "number_yalow_card")

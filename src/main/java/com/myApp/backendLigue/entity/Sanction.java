@@ -31,10 +31,17 @@ public class Sanction {
     @Column(name = "begin_date")
     private Date beginDate;
 
+
+
     public Sanction(Long playerId) {
         this.playerId = playerId;
         this.numberOfYellowCard = 0;
         this.numberOfRedCard = 0;
         this.executed = false;
+    }
+
+    public Sanction(Long playerId, int numberOfYellowCard){
+        this.playerId = playerId;
+        this.numberOfYellowCard = numberOfYellowCard;
     }
 }
