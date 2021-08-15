@@ -32,7 +32,6 @@ public class Sanction {
     private Date beginDate;
 
 
-
     public Sanction(Long playerId) {
         this.playerId = playerId;
         this.numberOfYellowCard = 0;
@@ -40,8 +39,12 @@ public class Sanction {
         this.executed = false;
     }
 
-    public Sanction(Long playerId, int numberOfYellowCard){
+    public Sanction(Long playerId, int card, String redOrYellowCard) {
         this.playerId = playerId;
-        this.numberOfYellowCard = numberOfYellowCard;
+        if (redOrYellowCard.equals("yellow")) {
+            this.numberOfYellowCard = card;
+        } else {
+            this.numberOfRedCard = card;
+        }
     }
 }

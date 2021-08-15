@@ -37,14 +37,14 @@ public class PlayService {
     public void addYellowCard(Long gameId, Long playerId, int numberOfYellowCard) throws Exception {
         List<Play> plays = this.playRepository.findByGameIdAndPlayerId(gameId, playerId);
         Play play;
-        int allYellowCardsInDifferentGame = this.findInSanctionByPlayerId(playerId).getNumberOfYellowCard();
-        if (plays.isEmpty() && allYellowCardsInDifferentGame < 4) {
+        Sanction cardsAlreadyGivenInDifferentGAme = this.findInSanctionByPlayerId(playerId);
+        if (cardsAlreadyGivenInDifferentGAme == null || (plays.isEmpty() && cardsAlreadyGivenInDifferentGAme.getNumberOfYellowCard() < 20)) { // fix it
             play = new Play(gameId, playerId, numberOfYellowCard, "yellow");
             play.setNumberYalowCard(numberOfYellowCard);
             this.playRepository.save(play);
             this.addYellowCardToSanction(playerId, numberOfYellowCard);
-        } else if (allYellowCardsInDifferentGame == 4) {
-            throw new Exception("This Player Has 4 Yellow Card In Defferent Game");
+        } else if (cardsAlreadyGivenInDifferentGAme.getNumberOfYellowCard() != null && cardsAlreadyGivenInDifferentGAme.getNumberOfYellowCard() == 20) { // fix it
+            throw new Exception("This Player Has 4 Yellow Card In Different Game");
         } else {
             play = plays.get(0);
             int numberOfYellowCardAlreadyGiven = play.getNumberYalowCard();
@@ -61,19 +61,81 @@ public class PlayService {
         }
     }
 
+    // this function supposed to be in sanction service
     public void addYellowCardToSanction(Long playerId, int yellowCard) throws Exception {
         Sanction sanction = this.findInSanctionByPlayerId(playerId);
         if (sanction == null) {
-            sanction = new Sanction(playerId, yellowCard);
+            sanction = new Sanction(playerId, yellowCard, "yellow");
             this.sanctionRepository.save(sanction);
         } else {
             int allYellowCardAlreadyGiven = sanction.getNumberOfYellowCard();
-            if (allYellowCardAlreadyGiven < 4) {
+            if (yellowCardCounter(sanction)) { // here add the code that you mak
                 sanction.setNumberOfYellowCard(allYellowCardAlreadyGiven + yellowCard);
                 this.sanctionRepository.save(sanction);
             } else {
                 throw new Exception("this player has " + allYellowCardAlreadyGiven + "already given");
             }
+        }
+    }
+
+    public void removeYellowCard(Long playId) {
+        Play play = this.playRepository.getOne(playId);
+        Long playerId = play.getPlayerId();
+        int numberOfYellowCard = play.getNumberYalowCard();
+        if (numberOfYellowCard > 0) {
+            play.setNumberYalowCard(numberOfYellowCard - 1);
+            this.playRepository.save(play);
+            Sanction sanction = this.findInSanctionByPlayerId(playerId);
+            int allYellowCardInDifferentGame = sanction.getNumberOfYellowCard();
+            sanction.setNumberOfYellowCard(allYellowCardInDifferentGame - 1);
+            this.sanctionRepository.save(sanction);
+        }
+    }
+
+    // reconsidering this code
+    public void addRedCard(Long gameId, Long playerId, int redCard) throws Exception {
+       /* List<Play> plays = this.playRepository.findByGameIdAndPlayerId(playerId, gameId);
+        if (plays.isEmpty()) {
+            Play play = new Play(gameId, playerId, redCard, "red");
+            Sanction sanction = new Sanction(playerId, redCard, "red");
+            this.playRepository.save(play);
+            this.sanctionRepository.save(sanction);
+        } else if (plays.get(0).getNumberRedCard() >= 0) {
+            Play play = plays.get(0);
+            play.setNumberRedCard(redCard);
+            Sanction sanction = this.findInSanctionByPlayerId(playerId);
+            int redCardAlreadyGivenInSanction;
+            if (sanction.getNumberOfRedCard() == null) {
+                sanction.setNumberOfRedCard(1);
+            } else {
+                redCardAlreadyGivenInSanction = sanction.getNumberOfRedCard();
+                if (play.getNumberRedCard() < 1) {
+                    sanction.setNumberOfRedCard(redCardAlreadyGivenInSanction + 1);
+                } else {
+                    throw new Exception("This Player Has 1 Red Already Given");
+                }
+
+            }
+            this.playRepository.save(play);
+            this.sanctionRepository.save(sanction);
+        } else {
+            throw new Exception("This Player Already Has a Red Card");
+        }
+        */
+
+    }
+
+    public void removeRedCard(Long playId) {
+        Play play = this.playRepository.getOne(playId);
+        Long playerId = play.getPlayerId();
+        int redCardAlreadyGiven = play.getNumberRedCard();
+        if (redCardAlreadyGiven > 0) {
+            play.setNumberRedCard(redCardAlreadyGiven - 1);
+            this.playRepository.save(play);
+            Sanction sanction = this.findInSanctionByPlayerId(playerId);
+            int numberOfRedCardInSanction = sanction.getNumberOfRedCard();
+            sanction.setNumberOfRedCard(numberOfRedCardInSanction - 1);
+            this.sanctionRepository.save(sanction);
         }
     }
 
@@ -85,6 +147,13 @@ public class PlayService {
             Sanction sanction = sanctions.get(0);
             return sanction;
         }
+    }
+
+    public boolean yellowCardCounter(Sanction sanction){
+        int numberOfYellowCard = sanction.getNumberOfYellowCard() / 2;
+        if (numberOfYellowCard % 2 == 0 && sanction.getExecuted() == null)
+            return false;
+        return true;
     }
 
     //the old one (code)

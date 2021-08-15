@@ -23,7 +23,7 @@ public class Play {
         this.gameId = gameId;
         this.playerId = playerId;
         if(yellowOrRed.equals("red")){
-            this.numberYalowCard = numberYalowOrRedCard;
+            this.numberRedCard = numberYalowOrRedCard;
         }
         if(yellowOrRed.equals("yellow")){
             this.numberYalowCard = numberYalowOrRedCard;

@@ -29,13 +29,21 @@ public class PlayController {
 
     @PostMapping("/save/red-card")
     public void saveRedCard(@RequestBody Play play) throws Exception{
-        this.playService.addYellowOrRedCard(play.getGameId(), play.getPlayerId(), play.getNumberRedCard(), play.getNumberYalowCard());
+        //this.playService.addYellowOrRedCard(play.getGameId(), play.getPlayerId(), play.getNumberRedCard(), play.getNumberYalowCard());
+        this.playService.addRedCard(play.getGameId(), play.getPlayerId(), play.getNumberRedCard());
     }
 
 
     @PostMapping("/delet/yellowOrRedCard/{redOrYellow}")
     public void removeYellowCard(@RequestBody Play play, @PathVariable("redOrYellow") String redOrYellow){
-        this.playService.removeYellowOrRedCard(play.getPlayId(), redOrYellow);
+        //this.playService.removeYellowOrRedCard(play.getPlayId(), redOrYellow);
+        // new code
+        Long playId = play.getPlayId();
+        if (redOrYellow.equals("yellow")){
+            this.playService.removeYellowCard(playId);
+        } else {
+            this.playService.removeRedCard(play.getPlayId());
+        }
     }
 
     // for the commission
